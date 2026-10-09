@@ -1,0 +1,14 @@
+{
+  "title": "Tamagotchi Girls",
+  "icons": {
+    "icon": "/logosofcorg/logo-icon.png"
+  },
+  "description": "Connect with a vibrant community of girls in tech through a playful, retro-styled website showcasing collaborative projects in design, coding, and hardware.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

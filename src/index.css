@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --color-bg: #b3eef5;
+  --color-bg-alt: #d4f5fb;
+  --color-black: #1a1a2e;
+  --color-window: #ffffff;
+  --color-cyan: #5de8f0;
+  --color-yellow: #ffe857;
+  --color-green: #a8e890;
+  --color-purple: #c5a0e8;
+  --color-pink: #f5a0c8;
+  --color-peach: #f0c4a0;
+  --color-blue: #a8d0f0;
+
+  --font-pixel: 'Press Start 2P', monospace;
+  --font-mono: 'Space Mono', monospace;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #b3eef5;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #1a1a2e;
+  margin: 0;
+  padding: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Pixel borders */
+.pixel-border {
+  border: 2px solid #1a1a2e;
+  box-shadow: 4px 4px 0 #1a1a2e;
+}
+
+.pixel-border-sm {
+  border: 2px solid #1a1a2e;
+  box-shadow: 3px 3px 0 #1a1a2e;
+}
+
+/* Retro window */
+.retro-window {
+  border: 2px solid #1a1a2e;
+  box-shadow: 4px 4px 0 #1a1a2e;
+  background: #ffffff;
+}
+
+.retro-window-bar {
+  background: #1a1a2e;
+  color: #ffffff;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+}
+
+.retro-window-dots {
+  display: flex;
+  gap: 4px;
+}
+
+.retro-window-dot {
+  width: 8px;
+  height: 8px;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+/* Grid background */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(26,26,46,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,26,46,0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Pixel font */
+.font-pixel {
+  font-family: 'Press Start 2P', monospace;
+}
+
+.font-mono {
+  font-family: 'Space Mono', monospace;
+}
+
+/* Pixel button active state */
+.pixel-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #1a1a2e !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #b3eef5;
+  border-left: 2px solid #1a1a2e;
+}
+::-webkit-scrollbar-thumb {
+  background: #1a1a2e;
+}
+
+/* Blinking cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.blink { animation: blink 1s step-end infinite; }
+
+/* Float animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+.float { animation: float 3s ease-in-out infinite; }
+
+/* Twinkle */
+@keyframes twinkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.7); }
+}
+
+/* Pixel scan line - very subtle */
+.scanline::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.01) 2px,
+    rgba(0,0,0,0.01) 4px
+  );
+  pointer-events: none;
+}
