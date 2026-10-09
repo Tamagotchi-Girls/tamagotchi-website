@@ -65,6 +65,7 @@ export default function SuccessState() {
               <div className="w-12 h-1 bg-[#a8e890] mx-auto mt-2 mb-4" />
               <p className="font-body text-sm text-black/70 leading-relaxed max-w-sm mx-auto">
                 A continuación, en tu correo electrónico podrás ver los detalles de tu solicitud.
+                Porfavor, revisa tu bandeja de entrada y la carpeta de spam para asegurarte de recibir la confirmación.
               </p>
             </motion.div>
 

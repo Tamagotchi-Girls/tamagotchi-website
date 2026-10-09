@@ -1,10 +1,9 @@
 import { motion } from 'motion/react'
-import { FaGithub, FaInstagram, FaEnvelope } from 'react-icons/fa'
+import { FaGithub, FaInstagram} from 'react-icons/fa'
 
 const SOCIAL_LINKS = [
   { label: 'GitHub', Icon: FaGithub, href: 'https://github.com/Tamagotchi-Girls' },
   { label: 'Instagram', Icon: FaInstagram, href: 'https://instagram.com' },
-  { label: 'Contacto', Icon: FaEnvelope, href: 'email: TamagotchiGirls@gmail.com' },
 ]
 
 export default function Footer() {
