@@ -1,8 +1,10 @@
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { motion } from 'motion/react'
 
-export default function SuccessState() {
+export default function SuccessState({ alreadySubmitted: alreadySubmittedProp }: { alreadySubmitted?: boolean }) {
   const navigate = useNavigate()
+  const location = useLocation()
+  const alreadySubmitted = alreadySubmittedProp ?? !!(location.state as { alreadySubmitted?: boolean } | null)?.alreadySubmitted
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-16 grid-bg pt-28" style={{ background: '#b3eef5' }}>
@@ -64,8 +66,14 @@ export default function SuccessState() {
               </h1>
               <div className="w-12 h-1 bg-[#a8e890] mx-auto mt-2 mb-4" />
               <p className="font-body text-sm text-black/70 leading-relaxed max-w-sm mx-auto">
-                A continuación, en tu correo electrónico podrás ver los detalles de tu solicitud.
-                Porfavor, revisa tu bandeja de entrada y la carpeta de spam para asegurarte de recibir la confirmación.
+                {alreadySubmitted ? (
+                  'Ya enviaste tu solicitud, pronto nos pondremos en contacto.'
+                ) : (
+                  <>
+                    A continuación, en tu correo electrónico podrás ver los detalles de tu solicitud.
+                    Porfavor, revisa tu bandeja de entrada y la carpeta de spam para asegurarte de recibir la confirmación.
+                  </>
+                )}
               </p>
             </motion.div>
 

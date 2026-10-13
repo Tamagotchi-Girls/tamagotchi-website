@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
 import { submitApplication } from '../lib/api'
+import { getApplicationLock, setApplicationLock } from '../lib/applicationLock'
 import PixelButton from './PixelButton'
+import SuccessState from './SuccessState'
 
 interface FormData {
   name: string
@@ -22,6 +24,15 @@ interface FormErrors {
 }
 
 const SEMESTER_OPTIONS = Array.from({ length: 12 }, (_, i) => String(i + 1))
+
+const MAX_LENGTH = {
+  name: 100,
+  career: 100,
+  semester: 20,
+  institutionalEmail: 100,
+  github: 100,
+  motivation: 1000,
+} as const
 
 function FieldLabel({ htmlFor, children, required }: { htmlFor: string; children: React.ReactNode; required?: boolean }) {
   return (
@@ -61,19 +72,30 @@ export default function ApplicationForm() {
   const [errors, setErrors] = useState<FormErrors>({})
   const [loading, setLoading] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
+  const [website, setWebsite] = useState('') // honeypot
+  const isSubmitting = useRef(false)
+  const [alreadySubmitted] = useState(() => getApplicationLock() !== null)
 
   const validate = (): FormErrors => {
     const e: FormErrors = {}
-    if (!form.name.trim()) e.name = 'El nombre es obligatorio.'
-    if (!form.career.trim()) e.career = 'La carrera es obligatoria.'
+    const name = form.name.trim()
+    const career = form.career.trim()
+    const email = form.institutionalEmail.trim()
+    const motivation = form.motivation.trim()
+    if (!name) e.name = 'El nombre es obligatorio.'
+    else if (name.length > MAX_LENGTH.name) e.name = `Máximo ${MAX_LENGTH.name} caracteres.`
+    if (!career) e.career = 'La carrera es obligatoria.'
+    else if (career.length > MAX_LENGTH.career) e.career = `Máximo ${MAX_LENGTH.career} caracteres.`
     if (!form.semester) e.semester = 'Selecciona tu semestre.'
-    if (!form.institutionalEmail.trim()) {
+    else if (form.semester.length > MAX_LENGTH.semester) e.semester = 'Selecciona un semestre válido.'
+    if (!email) {
       e.institutionalEmail = 'El correo es obligatorio.'
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.institutionalEmail)) {
+    } else if (email.length > MAX_LENGTH.institutionalEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       e.institutionalEmail = 'Ingresa un correo válido.'
     }
-    if (!form.motivation.trim()) e.motivation = 'Este campo es obligatorio.'
-    else if (form.motivation.trim().length < 30) e.motivation = 'Cuéntanos un poco más (mínimo 30 caracteres).'
+    if (!motivation) e.motivation = 'Este campo es obligatorio.'
+    else if (motivation.length < 30) e.motivation = 'Cuéntanos un poco más (mínimo 30 caracteres).'
+    else if (motivation.length > MAX_LENGTH.motivation) e.motivation = `Máximo ${MAX_LENGTH.motivation} caracteres.`
     return e
   }
 
@@ -87,6 +109,7 @@ export default function ApplicationForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (isSubmitting.current) return
     const errs = validate()
     if (Object.keys(errs).length > 0) {
       setErrors(errs)
@@ -94,24 +117,31 @@ export default function ApplicationForm() {
       firstErr?.scrollIntoView({ behavior: 'smooth', block: 'center' })
       return
     }
+    isSubmitting.current = true
     setLoading(true)
     setSubmitError(null)
+    const institutionalEmail = form.institutionalEmail.trim()
     try {
-      await submitApplication({
+      const res = await submitApplication({
         name: form.name.trim(),
         career: form.career.trim(),
         semester: form.semester,
-        institutionalEmail: form.institutionalEmail.trim(),
+        institutionalEmail,
         github: form.github.trim(),
         motivation: form.motivation.trim(),
+        website,
       })
-      navigate('/solicitud/exito')
+      setApplicationLock(institutionalEmail)
+      navigate('/solicitud/exito', { state: { alreadySubmitted: !!res.alreadySubmitted } })
     } catch (err: any) {
       setSubmitError(err.message || 'Error al enviar. Intenta de nuevo.')
     } finally {
+      isSubmitting.current = false
       setLoading(false)
     }
   }
+
+  if (alreadySubmitted) return <SuccessState alreadySubmitted />
 
   return (
     <div className="min-h-screen pt-28 pb-16 px-4 md:px-8 grid-bg" style={{ background: '#b3eef5' }}>
@@ -159,6 +189,20 @@ export default function ApplicationForm() {
             </motion.div>
 
             <form onSubmit={handleSubmit} noValidate>
+              {/* Honeypot: off-screen (not display:none) so bots fill it; real users never see it */}
+              <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, overflow: 'hidden' }}>
+                <label htmlFor="website">Website</label>
+                <input
+                  id="website"
+                  name="website"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  value={website}
+                  onChange={e => setWebsite(e.target.value)}
+                />
+              </div>
               <div className="space-y-5">
                 {/* Nombre */}
                 <div data-error-field={errors.name ? 'name' : undefined}>
@@ -166,6 +210,7 @@ export default function ApplicationForm() {
                   <input
                     id="name"
                     name="name"
+                    maxLength={MAX_LENGTH.name}
                     type="text"
                     value={form.name}
                     onChange={handleChange}
@@ -184,6 +229,7 @@ export default function ApplicationForm() {
                   <input
                     id="career"
                     name="career"
+                    maxLength={MAX_LENGTH.career}
                     type="text"
                     value={form.career}
                     onChange={handleChange}
@@ -221,6 +267,7 @@ export default function ApplicationForm() {
                   <input
                     id="institutionalEmail"
                     name="institutionalEmail"
+                    maxLength={MAX_LENGTH.institutionalEmail}
                     type="email"
                     value={form.institutionalEmail}
                     onChange={handleChange}
@@ -238,6 +285,7 @@ export default function ApplicationForm() {
                   <input
                     id="github"
                     name="github"
+                    maxLength={MAX_LENGTH.github}
                     type="url"
                     value={form.github}
                     onChange={handleChange}
@@ -252,6 +300,7 @@ export default function ApplicationForm() {
                   <textarea
                     id="motivation"
                     name="motivation"
+                    maxLength={MAX_LENGTH.motivation}
                     value={form.motivation}
                     onChange={handleChange}
                     rows={5}
