@@ -3,7 +3,7 @@ import { FaGithub, FaInstagram} from 'react-icons/fa'
 
 const SOCIAL_LINKS = [
   { label: 'GitHub', Icon: FaGithub, href: 'https://github.com/Tamagotchi-Girls' },
-  { label: 'Instagram', Icon: FaInstagram, href: 'https://instagram.com' },
+  { label: 'Instagram', Icon: FaInstagram, href: 'https://tamagotchigirlsmx' },
 ]
 
 export default function Footer() {
