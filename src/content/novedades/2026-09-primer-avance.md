@@ -1,22 +1,23 @@
 ---
-titulo: "[PLACEHOLDER] Primer avance del proyecto"
-fecha: 2026-09-20
-resumen: "Otra publicación de ejemplo, sin galería, para probar la lista y el orden por fecha."
-imagen: /novedades/placeholder-portada-2.svg
-alt: "Imagen de ejemplo con fondo rosa"
-placeholder: true
+titulo: "💌 ¡Tamagotchi Girls Update!"
+fecha: 2026-10-14
+resumen: "Recibimos tantas solicitudes que alcanzamos el límite diario de envíos del formulario. ¡Gracias por tanto interés!"
+imagen: /novedades/2026-10-estado-solicitudes-portada.webp
+alt: "Aviso en estilo pixel art: Estado de aplicación, ¡recibimos muchísimas solicitudes!"
+imagenes:
+  - src: /novedades/2026-10-estado-solicitudes-poster.webp
+  - src: /novedades/2026-10-convocatoria-instagram.webp
+    alt: "Perfil de Instagram de Tamagotchi Girls"
+  - src: /novedades/2026-10-convocatoria-github.webp
+    alt: "Perfil de Tamagotchi Girls en GitHub"
 ---
 
-Este es otro **texto de ejemplo**. Aquí iría el cuerpo completo de la novedad.
+¡Muchísimas gracias por el interés! 🥹✨
 
-## Lo que logramos
+Recibimos tantas solicitudes que alcanzamos el límite diario de envíos de nuestro formulario. Fue una sorpresa increíble ver a tantas chicas con ganas de sumarse al proyecto. 🎮💻
 
-1. Primer prototipo funcionando
-2. Diseño de los personajes
-3. Planeación de las siguientes etapas
+🕓 Al día siguiente reabrimos el formulario a partir de las 4:00 p. m. para que nadie se quedara sin aplicar.
 
-También puedes poner imágenes dentro del texto:
+Mientras tanto, te invitamos a conocer más sobre nosotras y el proyecto aquí en la página, en [Instagram](https://www.instagram.com/tamagotchigirlsmx) y en [GitHub](https://github.com/Tamagotchi-Girls). 💖
 
-![Imagen de ejemplo dentro del cuerpo](/novedades/placeholder-galeria-1.svg)
-
-[Volver al inicio](/)
+¡Esperamos verte pronto en el equipo! 🎨📱🔌
