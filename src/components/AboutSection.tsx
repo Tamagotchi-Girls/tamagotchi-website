@@ -1,5 +1,6 @@
 import { motion } from 'motion/react'
 import RetroWindow from './RetroWindow'
+import PixelArrow from './PixelArrow'
 
 const KEYWORDS = [
   { label: 'DISEÑO', icon: '/Icons/colorpaleteicon.png', color: '#f5a0c8', desc: 'Pixel art, interfaces y experiencias visuales.' },
@@ -70,7 +71,7 @@ export default function AboutSection() {
                     transition={{ delay: 0.3 + i * 0.1 }}
                     className="flex items-start gap-2"
                   >
-                    <span className="font-pixel text-[10px] text-[#a8e890] mt-0.5">▸</span>
+                    <span className="font-pixel text-[10px] text-[#a8e890] mt-0.5"><PixelArrow /></span>
                     <span className="font-body text-sm text-black/80">{item}</span>
                   </motion.div>
                 ))}

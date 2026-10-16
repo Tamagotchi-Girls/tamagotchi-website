@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 import { motion } from 'motion/react'
+import PixelArrow from './PixelArrow'
 
 export default function SuccessState({ alreadySubmitted: alreadySubmittedProp }: { alreadySubmitted?: boolean }) {
   const navigate = useNavigate()
@@ -102,7 +103,7 @@ export default function SuccessState({ alreadySubmitted: alreadySubmittedProp }:
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 }}
             >
-              VOLVER AL INICIO ↩
+              <PixelArrow direction="left" className="mr-2" />VOLVER AL INICIO
             </motion.button>
           </div>
         </motion.div>

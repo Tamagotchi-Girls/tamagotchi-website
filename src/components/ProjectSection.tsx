@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from 'motion/react'
 import { useEffect, useRef, useState } from 'react'
 import RetroWindow from './RetroWindow'
+import PixelArrow from './PixelArrow'
 
 const WALLPAPER_FRAMES = [
   '/Wallpapers/FramesW2/frame1.png',
@@ -136,7 +137,7 @@ export default function ProjectSection() {
                   className="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center border-2 border-black bg-[#ffe857] font-pixel text-[10px] cursor-pointer"
                   style={{ boxShadow: '2px 2px 0 #1a1a2e' }}
                 >
-                  ◀
+                  <PixelArrow direction="left" />
                 </button>
                 <button
                   onClick={goNextVideo}
@@ -144,7 +145,7 @@ export default function ProjectSection() {
                   className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center border-2 border-black bg-[#ffe857] font-pixel text-[10px] cursor-pointer"
                   style={{ boxShadow: '2px 2px 0 #1a1a2e' }}
                 >
-                  ▶
+                  <PixelArrow />
                 </button>
               </div>
               <div className="flex items-center justify-center gap-2 py-2 border-t-2 border-black" style={{ background: '#0d0d1a' }}>
