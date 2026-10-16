@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'motion/react'
+import { APPLICATIONS_OPEN } from '../config/features'
+import PixelArrow from './PixelArrow'
 
 export default function CTASection() {
   const navigate = useNavigate()
@@ -64,13 +66,14 @@ export default function CTASection() {
           transition={{ delay: 0.3, type: 'spring', stiffness: 200, damping: 20 }}
         >
           <motion.button
-            onClick={() => navigate('/solicitud')}
+            onClick={() => navigate(APPLICATIONS_OPEN ? '/solicitud' : '/novedades')}
             className="pixel-btn font-pixel text-[11px] px-6 py-4 border-2 border-black cursor-pointer"
             style={{ background: '#ffe857', boxShadow: '5px 5px 0 #1a1a2e' }}
             whileHover={{ scale: 1.05, y: -2, boxShadow: '7px 7px 0 #1a1a2e' }}
             whileTap={{ scale: 0.97, x: 3, y: 3, boxShadow: '2px 2px 0 #1a1a2e' }}
           >
-            ME INTERESA UNIRME A LA ORGANIZACION ▸
+            {APPLICATIONS_OPEN ? 'ME INTERESA UNIRME A LA ORGANIZACION' : 'VER NOVEDADES'}
+            <PixelArrow className="ml-2" />
           </motion.button>
         </motion.div>
       </div>

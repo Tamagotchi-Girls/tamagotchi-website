@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom'
 import { motion, useScroll, useTransform } from 'motion/react'
 import { useEffect, useRef, useState } from 'react'
 import PixelButton from './PixelButton'
+import PixelArrow from './PixelArrow'
+import { APPLICATIONS_OPEN } from '../config/features'
 
 const KOYA_FRAMES = [
   '/koyaicon/framexp1koya.png',
@@ -123,7 +125,7 @@ export default function Hero() {
         animate={{ x: [0, 8, 0], y: [0, -5, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
       >
-        ▸
+        <PixelArrow />
       </motion.div>
 
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 md:px-8 flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
@@ -210,9 +212,9 @@ export default function Hero() {
                 <PixelButton
                   variant="yellow"
                   size="md"
-                  onClick={() => navigate('/solicitud')}
+                  onClick={() => navigate(APPLICATIONS_OPEN ? '/solicitud' : '/novedades')}
                 >
-                  ME INTERESA UNIRME
+                  {APPLICATIONS_OPEN ? 'ME INTERESA UNIRME' : 'VER NOVEDADES'}
                 </PixelButton>
                 <PixelButton
                   variant="outline"
