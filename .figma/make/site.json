@@ -4,8 +4,9 @@
     "icon": "/logosofcorg/logo-icon.png"
   },
   "description": "Connect with a vibrant community of girls in tech through a playful, retro-styled website showcasing collaborative projects in design, coding, and hardware.",
+  "language": "es",
   "robots": {
-    "index": false
+    "index": true
   },
   "accessibility": {
     "addBypassLinks": false,
